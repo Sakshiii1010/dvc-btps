@@ -18,6 +18,14 @@ CORS(
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 )
 
+# ✅ ADD THIS BELOW CORS
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+    return response
+
 # ── JWT ───────────────────────────────────────────────────────────────────────
 app.config["JWT_SECRET_KEY"]          = os.getenv("JWT_SECRET_KEY", "dvc-btps-super-secret-key-2024")
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = False
