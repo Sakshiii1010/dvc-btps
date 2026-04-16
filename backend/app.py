@@ -12,7 +12,7 @@ app = Flask(__name__)
 # ── CORS: allow localhost:3000 (React dev) with all methods & headers ─────────
 CORS(
     app,
-    origins=["http://localhost:3000"],
+    origins=["http://localhost:3000", "https://dvc-btps-frontend.onrender.com"],
     supports_credentials=True,
     allow_headers=["Content-Type", "Authorization"],
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
