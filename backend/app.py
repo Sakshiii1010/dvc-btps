@@ -54,6 +54,31 @@ app.register_blueprint(application_bp,  url_prefix="/api/application")
 app.register_blueprint(admin_bp,        url_prefix="/api/admin")
 app.register_blueprint(quarters_bp,     url_prefix="/api/quarters")
 
+@app.route("/seed-admin")
+def seed_admin():
+    from pymongo import MongoClient
+    import bcrypt
+    import os
+
+    client = MongoClient(os.getenv("MONGO_URI"))
+    db = client["dvc_btps"]
+
+    users = db["users"]
+
+    # Check if admin already exists
+    if users.find_one({"username": "admin"}):
+        return "Admin already exists!"
+
+    hashed_pw = bcrypt.hashpw("Admin@1234".encode("utf-8"), bcrypt.gensalt())
+
+    users.insert_one({
+        "username": "admin",
+        "password": hashed_pw,
+        "role": "admin"
+    })
+
+    return "Admin created successfully!"
+
 @app.route("/api/health")
 def health():
     return {"status": "DVC BTPS Server Running", "version": "1.0.0"}
