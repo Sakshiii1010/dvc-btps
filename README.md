@@ -13,8 +13,7 @@ dvc-btps/
 ├── 📄 README.md                  ← You are here
 ├── 📄 .gitignore
 ├── 📄 dvc-btps.code-workspace    ← Open this in VS Code for best experience
-├── 🖥️  START_WINDOWS.bat         ← Double-click to run on Windows
-├── 🖥️  START_MAC_LINUX.sh        ← Run on Mac/Linux
+
 │
 ├── 🐍 backend/
 │   ├── app.py                    ← Flask entry point (run this)
@@ -150,11 +149,10 @@ Your browser will automatically open **http://localhost:3000** 🎉
 
 After both servers are running:
 
-| Role | How to login | Credentials |
-|------|-------------|-------------|
-| **Employee** | Go to `/login` | ID: `EMP001` · Password: `Employee@1234` |
-| **Admin** | Go to `/admin/login` | Username: `admin` · Password: `Admin@1234` |
-
+| Role | Access |
+|------|--------|
+| Employee | Register and login using your own credentials |
+| Admin | Configured via backend environment variables |
 ---
 
 ### STEP 5 — Register a New Employee (optional test)
@@ -166,12 +164,13 @@ After both servers are running:
 
 ---
 
-## 🔑 Default Login Credentials (after running seed_db.py)
+## 🔑 Demo Access
 
-```
-Admin:    username = admin        password = Admin@1234
-Employee: employee_id = EMP001   password = Employee@1234
-```
+You can:
+- Register a new employee account via the registration page
+- Use the application features after login
+
+Admin access is configured securely via backend environment variables.
 
 ---
 
