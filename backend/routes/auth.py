@@ -68,9 +68,17 @@ def login():
     password    = data.get("password")
 
     user = db.users.find_one({"employee_id": employee_id})
-    if not user or not bcrypt.checkpw(password.encode(), user["password"]):
-        return jsonify({"error": "Invalid credentials"}), 401
+    stored_password = user["password"]
+    print("USER FROM DB:", user)
+    print("PASSWORD TYPE:", type(user["password"]) if user else "No user found")
 
+    # ensure bytes
+    if not isinstance(stored_password, bytes):
+        stored_password = bytes(stored_password)
+
+    if not bcrypt.checkpw(password.encode(), stored_password):
+        return jsonify({"error": "Invalid credentials"}), 401
+        
     # ── Send SMS notification on login ──
     _send_login_sms(user)
 
