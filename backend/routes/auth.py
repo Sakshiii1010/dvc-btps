@@ -91,7 +91,7 @@ def admin_login():
     password = data.get("password")
 
     admin = db.admins.find_one({"username": username})
-    if not admin or not bcrypt.checkpw(password.encode(), admin["password"]):
+    if not admin or not bcrypt.checkpw(password.encode(), admin["password"].encode()):
         return jsonify({"error": "Invalid admin credentials"}), 401
 
     token = create_access_token(identity=f"admin:{admin['username']}")
