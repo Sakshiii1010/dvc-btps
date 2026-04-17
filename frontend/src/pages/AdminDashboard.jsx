@@ -131,7 +131,7 @@ function QuarterMap({ quarters, onQuarterClick }) {
             }}>
               Block {block} — {sample?.type} ({sample?.category})
               <span style={{ color: "#8a9bb0", fontWeight: 400, marginLeft: "12px" }}>
-                {bq.filter(q => q.status === "vacant").length} vacant / {bq.length} total
+                {bq.filter(q => q.status?.toLowerCase() === "vacant").length} vacant / {bq.length} total
               </span>
             </h3>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
@@ -139,9 +139,9 @@ function QuarterMap({ quarters, onQuarterClick }) {
                 <button key={q.quarter_number} onClick={() => onQuarterClick(q)} title={`${q.quarter_number}\n${q.status}\n${q.occupied_by ? "By: " + q.occupied_by : ""}`}
                   style={{
                     width: 56, height: 56, borderRadius: "8px", cursor: "pointer",
-                    border: `2px solid ${q.status === "vacant" ? "rgba(46,204,113,0.5)" : "rgba(231,76,60,0.5)"}`,
-                    background: q.status === "vacant" ? "rgba(46,204,113,0.12)" : "rgba(231,76,60,0.12)",
-                    color: q.status === "vacant" ? "#2ecc71" : "#e74c3c",
+                    border: `2px solid ${q.status?.toLowerCase() === "vacant" ? "rgba(46,204,113,0.5)" : "rgba(231,76,60,0.5)"}`,
+                    background: q.status?.toLowerCase() === "vacant" ? "rgba(46,204,113,0.12)" : "rgba(231,76,60,0.12)",
+                    color: q.status?.toLowerCase() === "vacant" ? "#2ecc71" : "#e74c3c",
                     fontFamily: "Rajdhani", fontWeight: 700, fontSize: "0.7rem",
                     transition: "all 0.15s", display: "flex", flexDirection: "column",
                     alignItems: "center", justifyContent: "center", gap: "2px"
@@ -150,7 +150,7 @@ function QuarterMap({ quarters, onQuarterClick }) {
                   onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.zIndex = "1"; }}
                 >
                   <span style={{ fontSize: "0.65rem" }}>{q.quarter_number}</span>
-                  <span style={{ fontSize: "0.9rem" }}>{q.status === "vacant" ? "🟢" : "🔴"}</span>
+                  <span style={{ fontSize: "0.9rem" }}>{q.status?.toLowerCase() === "vacant" ? "🟢" : "🔴"}</span>
                 </button>
               ))}
             </div>
