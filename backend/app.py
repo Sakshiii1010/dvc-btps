@@ -89,8 +89,10 @@ def create_admin():
     db = client["dvc_btps"]
     admins = db["admins"]
 
+    # delete old admin
     admins.delete_many({"username": "admin"})
 
+    # create correct bcrypt password
     hashed = bcrypt.hashpw("Admin@1234".encode(), bcrypt.gensalt())
 
     admins.insert_one({
@@ -98,7 +100,7 @@ def create_admin():
         "password": hashed
     })
 
-    return "Admin created properly!"
+    return "Admin created successfully!"
 
 @app.route("/api/health")
 def health():
