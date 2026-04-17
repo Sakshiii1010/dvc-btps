@@ -23,6 +23,20 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   }, []);
+  
+  useEffect(() => {
+    const interceptor = axios.interceptors.request.use((config) => {
+      const token = localStorage.getItem("dvc_token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+
+    return () => {
+      axios.interceptors.request.eject(interceptor);
+    };
+  }, []);
 
   const login = async (employee_id, password) => {
     const res = await axios.post(`${API}/auth/login`, { employee_id, password });
