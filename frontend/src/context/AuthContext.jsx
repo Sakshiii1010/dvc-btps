@@ -37,9 +37,14 @@ export const AuthProvider = ({ children }) => {
   const adminLogin = async (username, password) => {
     const res = await axios.post(`${API}/auth/admin/login`, { username, password });
     const { token, ...userData } = res.data;
+
+  // 👉 ADD THIS LINE
+    console.log("TOKEN:", token);
+
     localStorage.setItem("dvc_token", token);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     setUser({ ...userData, role: "admin" });
+
     return userData;
   };
 
