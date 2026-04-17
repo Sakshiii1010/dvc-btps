@@ -98,7 +98,7 @@ def admin_login():
     return jsonify({
         "token": token,
         "role": "admin",
-        "name": admin["name"]
+        "name": admin["username"]
     }), 200
 
 
