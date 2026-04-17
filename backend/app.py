@@ -79,6 +79,27 @@ def seed_admin():
 
     return "Admin created successfully!"
 
+@app.route("/create-admin")
+def create_admin():
+    from pymongo import MongoClient
+    import bcrypt
+    import os
+
+    client = MongoClient(os.getenv("MONGO_URI"))
+    db = client["dvc_btps"]
+    admins = db["admins"]
+
+    admins.delete_many({"username": "admin"})
+
+    hashed = bcrypt.hashpw("Admin@1234".encode(), bcrypt.gensalt())
+
+    admins.insert_one({
+        "username": "admin",
+        "password": hashed
+    })
+
+    return "Admin created properly!"
+
 @app.route("/api/health")
 def health():
     return {"status": "DVC BTPS Server Running", "version": "1.0.0"}
